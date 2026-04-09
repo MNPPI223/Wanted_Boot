@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Spring 프레임워크의 핵심 의존성
+    implementation 'org.springframework:spring-context:5.3.39'
+    // Lombok 추가
+    implementation ("org.projectlombok:lombok:1.18.42")
+    annotationProcessor("org.projectlombok:lombok:1.18.42")
+    compileOnly("org.projectlombok:lombok:1.18.42")
+    // Spring AOP 추가
+    implementation 'org.springframework:spring-aop:5.3.39'
+    // aspectjrt
+    implementation ('org.aspectj:aspectjrt:1.9.24')
+    // aspectjweaver
+    implementation ('org.aspectj:aspectjweaver:1.9.25.1')
+}
+
+test {
+    useJUnitPlatform()
+}

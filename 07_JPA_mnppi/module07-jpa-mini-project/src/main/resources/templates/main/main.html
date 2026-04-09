@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>원티드 메뉴 레스토랑</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            background: #f5f5f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 64px 24px 80px;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #86868b;
+            margin-bottom: 12px;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: 300;
+            color: #1d1d1f;
+            letter-spacing: -0.02em;
+            text-align: center;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 17px;
+            color: #6e6e73;
+            font-weight: 400;
+            margin-bottom: 56px;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            width: 100%;
+            max-width: 720px;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+            .title { font-size: 36px; }
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 28px 20px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.06);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            text-decoration: none;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        }
+
+        .card:active { transform: scale(0.97); }
+
+        .icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .icon-blue   { background: #e8f0fe; }
+        .icon-green  { background: #e6f4ea; }
+        .icon-amber  { background: #fef3e2; }
+        .icon-red    { background: #fce8e6; }
+        .icon-purple { background: #f0ebfe; }
+        .icon-teal   { background: #e0f5f1; }
+
+        .card-label {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6e6e73;
+            letter-spacing: 0.01em;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 500;
+            color: #1d1d1f;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+
+        .arrow {
+            margin-top: 4px;
+            font-size: 16px;
+            color: #0071e3;
+        }
+
+        .footer {
+            margin-top: 56px;
+            font-size: 13px;
+            color: #86868b;
+            text-align: center;
+            letter-spacing: 0.01em;
+        }
+    </style>
+</head>
+<body>
+<p class="eyebrow">Wanted Dev Lab</p>
+<h1 class="title">원티드 메뉴<br>레스토랑</h1>
+<p class="subtitle">Spring JPA 학습용 메뉴 관리 시스템</p>
+
+<div class="grid">
+    <a class="card" onclick="location.href='/menu/13'">
+        <div class="icon icon-blue">🔍</div>
+        <span class="card-label">단건 조회</span>
+        <span class="card-title">특정 메뉴 조회</span>
+        <span class="arrow">→</span>
+    </a>
+
+    <a class="card" onclick="location.href='/menu/list'">
+        <div class="icon icon-green">📋</div>
+        <span class="card-label">전체 조회</span>
+        <span class="card-title">전체 메뉴 조회</span>
+        <span class="arrow">→</span>
+    </a>
+
+    <a class="card" onclick="location.href='/menu/querymethod'">
+        <div class="icon icon-purple">⚡</div>
+        <span class="card-label">JPA</span>
+        <span class="card-title">쿼리 메서드</span>
+        <span class="arrow">→</span>
+    </a>
+
+    <a class="card" onclick="location.href='/menu/regist'">
+        <div class="icon icon-teal">✚</div>
+        <span class="card-label">등록</span>
+        <span class="card-title">메뉴 등록</span>
+        <span class="arrow">→</span>
+    </a>
+
+    <a class="card" onclick="location.href='/menu/modify'">
+        <div class="icon icon-amber">✏️</div>
+        <span class="card-label">수정</span>
+        <span class="card-title">메뉴 수정</span>
+        <span class="arrow">→</span>
+    </a>
+
+    <a class="card" onclick="location.href='/menu/delete'">
+        <div class="icon icon-red">🗑</div>
+        <span class="card-label">삭제</span>
+        <span class="card-title">메뉴 삭제</span>
+        <span class="arrow">→</span>
+    </a>
+</div>
+
+<p class="footer">Wanted Bootcamp · Spring Boot + JPA</p>
+</body>
+</html>
