@@ -64,7 +64,45 @@ public class MenuController {
      */
     @ResponseBody
     public List<CategoryDTO> findCategoryList() {
-
+        // 선택지들 하나하나가 모두 옵션이다.
         return menuService.findAllCategory();
     }
+
+    // 삭제할 때 사용하는 코드 로직 (regist의 fetch{delete} -> menuController의 DeleteMapping 에서
+    // Delete 방식으로 요청 -> responseBody 로 메뉴 삭제 보내기
+//    @DeleteMapping("delete/{menuCode}")
+//    @ResponseBody
+//    public String deleteTestMethod(@RequestBody MemberDTO memberDTO) { //memberDTO 에 이름과 나이가 있다고 가정
+//
+//        return menuCode + "번 메뉴 삭제 완료!!";
+//
+//    }
+
+    @PostMapping("/regist")
+    public ModelAndView registMenu(@ModelAttribute MenuDTO registMenu, ModelAndView mv) {
+
+        System.out.println("메뉴 등록 시 화면에서 넘어오는 값 : " + registMenu);
+        int menuCode = menuService.registMenu(registMenu);
+
+        System.out.println("서비스에서 전달 받은 menuCode " + menuCode);
+
+        mv.setViewName("redirect:/menu/" + menuCode);
+
+        return mv;
+    }
+
+    @GetMapping("/modify")
+    public void modifyPage() {}
+
+    @PostMapping("/modify")
+    public ModelAndView modifyMenuName(@RequestParam int menuCode,
+                                       @RequestParam String menuName,
+                                       ModelAndView mv) {
+        menuService.modifyMenuName(menuCode, menuName);
+        mv.setViewName("redirect:/menu/" + menuCode);
+
+        return mv;
+    }
+
+
 }

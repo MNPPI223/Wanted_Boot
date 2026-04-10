@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>신규 메뉴 등록</title>
+    <title>메뉴 수정하기</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -67,9 +67,8 @@
             color: #86868b;
         }
 
-        input[type="text"],
         input[type="number"],
-        select {
+        input[type="text"] {
             height: 44px;
             border: 1px solid rgba(0,0,0,0.12);
             border-radius: 10px;
@@ -81,13 +80,10 @@
             outline: none;
             transition: border 0.15s ease, background 0.15s ease;
             width: 100%;
-            appearance: none;
-            -webkit-appearance: none;
         }
 
-        input[type="text"]:focus,
         input[type="number"]:focus,
-        select:focus {
+        input[type="text"]:focus {
             border-color: #0071e3;
             background: #ffffff;
         }
@@ -126,73 +122,29 @@
 <body>
 
 <p class="eyebrow">Wanted Dev Lab</p>
-<h1 class="title">신규 메뉴 등록</h1>
+<h1 class="title">메뉴 수정하기</h1>
 
 <div class="card">
-    <form action="/menu/regist" method="post">
+    <form action="/menu/modify" method="post">
 
         <div class="field">
-            <label>메뉴 이름</label>
+            <label>수정할 메뉴 번호</label>
+            <input type="number" name="menuCode">
+        </div>
+
+        <div class="field">
+            <label>새로운 메뉴 이름</label>
             <input type="text" name="menuName">
-        </div>
-
-        <div class="field">
-            <label>메뉴 가격</label>
-            <input type="number" name="menuPrice">
-        </div>
-
-        <div class="field">
-            <label>카테고리</label>
-            <select name="categoryCode" id="categoryCode"></select>
-        </div>
-
-        <div class="field">
-            <label>판매여부</label>
-            <select name="orderableStatus">
-                <option value="Y">가능</option>
-                <option value="N">불가능</option>
-            </select>
         </div>
 
         <div class="divider"></div>
 
-        <input type="submit" value="등록하기">
+        <input type="submit" value="수정 요청">
 
     </form>
 </div>
 
 <p class="footer">Wanted Bootcamp · Spring Boot + JPA</p>
-
-<script>
-<!--    fetch 는 기본적으로 Get 방식이다.     -->
-    fetch('/menu/category')
-        .then(res => res.json())
-        .then(data => {
-
-            const $categoryCode
-                = document.getElementById("categoryCode");
-
-            for(let index in data) {
-                const $option = document.createElement("option");
-                $option.value = data[index].categoryCode;
-                $option.textContent = data[index].categoryName;
-
-                $categoryCode.appendChild($option);
-            }
-
-        })
-        // Get 방식이 아닌 Put 방식을 사용하기 위해 아래와 같이
-        // fetch("menu/delete/1", {
-        //     method : "DELETE",
-        //     headers : {
-        //         "Content-Type" : "application/json"
-        //     },
-        //     body : JSON.stringify({
-        //         name : "MNPPI",
-        //         age : 24
-        //     })
-        // })
-</script>
 
 </body>
 </html>

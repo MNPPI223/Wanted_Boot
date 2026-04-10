@@ -9,6 +9,7 @@ import com.wanted.project.domain.menu.model.entity.Menu;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,5 +56,57 @@ public class MenuService {
         return categoryList.stream()
                 .map(category -> modelMapper.map(category,CategoryDTO.class))
                 .collect(Collectors.toList());
+    }
+    @Transactional
+    public int registMenu(MenuDTO registMenu) {
+
+        // save 시에는 Entity 타입을 넣어야 한다.
+        // 하지만 전달받고 있는 객체 타입은 DTO 타입이기 때문에
+        // 마찬가지로 ModelMapper 로 DTO -> Entity 로 바꿔줄 것이다.
+        // 소괄호 안에서 부터 해석하면 된다.
+        Menu menu = modelMapper.map(registMenu, Menu.class);
+        System.out.println("menu = " + menu);
+        menuRepository.save(menu);
+
+
+
+//        menuRepository.save(modelMapper.map(registMenu, Menu.class));
+        // 67 번줄과 동일
+        return menu. getMenuCode();
+    }
+    @Transactional
+    public void modifyMenuName(int menuCode, String menuName) {
+
+        // 수정 대상 엔티티 객체 찾아오기
+        Menu foundMenu = menuRepository.findById(menuCode)
+                .orElseThrow(IllegalAccessError::new);
+
+        System.out.println("영속성 컨텍스트에서 찾아온 foundMenu : " + foundMenu);
+        // foundMenu 변수에는 이제 수정대상 엔티티가 담겨있다.
+
+//        /* comment.
+//            1. setter 메소드를 사용한 update -> setter 사용은 지양한다. (Entity 때문에)
+//         */
+//        foundMenu.setMenuName(menuName);
+
+        /* comment.
+            2. @Builder 어노테이션을 사용한 update 가능 (준영속 상태)
+         */
+//        foundMenu = foundMenu.toBuilder()
+//                .menuName(menuName).build(); // 값을 새로 넣는 순간 detach 상황 발생!!
+//        // 새로운 인스턴스가 대입 되는 것은 영속성 컨텍스트가
+//        // 아직 새로운 인스터스를 알지 못하는 상황이다.
+//
+//        // 영속성 컨텐스트에 넣기
+//        menuRepository.save(foundMenu);
+
+        /* comment.
+            3. Entity 내부에 직접 Builder 패턴을 구현
+         */
+        foundMenu = foundMenu.changeMenuName(menuName).builder();
+
+        // 영속성 컨텍스트 넣기
+        menuRepository.save(foundMenu);
+
     }
 }

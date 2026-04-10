@@ -1,16 +1,15 @@
 package com.wanted.project.domain.menu.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter // @Setter 는 제외시킴 (이유는?)
 @ToString
 @Entity
+// 2. @Builder 어노테이션을 사용한 update 가능
+//@Builder(toBuilder = true)
 @Table(name = "tbl_menu")
 public class Menu {
 
@@ -31,4 +30,20 @@ public class Menu {
        @Column(name = "orderable_status")
        private String orderableStatus;
 
+//       1. setter 메소드를 사용한 update -> setter 사용은 지양한다. (Entity 때문에)
+//       public void setMenuName(String menuName) {
+//
+//           this.menuName = menuName;
+//
+//    }
+            // 3. Entity 내부에 직접 Builder 패턴을 구현
+       public Menu changeMenuName(String newMenuName) {
+              this.menuName = newMenuName;
+              return this;
+       }
+
+       public Menu builder() {
+
+              return new Menu(menuCode, menuName, menuPrice, categoryCode, orderableStatus);
+       }
 }
