@@ -3232,3 +3232,139 @@ insert into tbl_book (author,available,isbn,publish_date,publisher,stock_quantit
 2026-04-29 12:39:28.034 [SpringApplicationShutdownHook] WARN  [] [] [] [] o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
 2026-04-29 12:39:28.034 [SpringApplicationShutdownHook] INFO  [] [] [] [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-04-29 12:39:28.034 [SpringApplicationShutdownHook] INFO  [] [] [] [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-29 15:04:24.601 [background-preinit] INFO  [] [] [] [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-04-29 15:04:24.617 [restartedMain] INFO  [] [] [] [] c.o.s.Chap01SpringStabilityApplication - Starting Chap01SpringStabilityApplication using Java 17.0.18 with PID 49587 (/Users/mnppi223/Desktop/dev/GitHub/wantedxEulji/Wanted_Boot/10_Logging-Monitoring/module01-spring-stability/build/classes/java/main started by mnppi223 in /Users/mnppi223/Desktop/dev/GitHub/wantedxEulji/Wanted_Boot/10_Logging-Monitoring/module01-spring-stability)
+2026-04-29 15:04:24.617 [restartedMain] DEBUG [] [] [] [] c.o.s.Chap01SpringStabilityApplication - Running with Spring Boot v3.4.13, Spring v6.2.15
+2026-04-29 15:04:24.618 [restartedMain] INFO  [] [] [] [] c.o.s.Chap01SpringStabilityApplication - The following 1 profile is active: "dev"
+2026-04-29 15:04:24.630 [restartedMain] INFO  [] [] [] [] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-29 15:04:24.630 [restartedMain] INFO  [] [] [] [] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-29 15:04:24.863 [restartedMain] INFO  [] [] [] [] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-29 15:04:24.901 [restartedMain] INFO  [] [] [] [] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 4 JPA repository interfaces.
+2026-04-29 15:04:25.138 [restartedMain] INFO  [] [] [] [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-29 15:04:25.142 [restartedMain] INFO  [] [] [] [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-29 15:04:25.142 [restartedMain] INFO  [] [] [] [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-29 15:04:25.142 [restartedMain] INFO  [] [] [] [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-04-29 15:04:25.155 [restartedMain] INFO  [] [] [] [] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-29 15:04:25.156 [restartedMain] INFO  [] [] [] [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 526 ms
+2026-04-29 15:04:25.181 [restartedMain] DEBUG [] [] [] [] c.o.s.s.l.config.LoggingConfig$1 - Filter 'mdcLoggingFilter' configured for use
+2026-04-29 15:04:25.220 [restartedMain] INFO  [] [] [] [] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-29 15:04:25.233 [restartedMain] INFO  [] [] [] [] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-04-29 15:04:25.242 [restartedMain] INFO  [] [] [] [] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-04-29 15:04:25.314 [restartedMain] INFO  [] [] [] [] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-29 15:04:25.322 [restartedMain] INFO  [] [] [] [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-29 15:04:25.389 [restartedMain] INFO  [] [] [] [] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:library user=OHGIRAFFERS
+2026-04-29 15:04:25.390 [restartedMain] INFO  [] [] [] [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-29 15:04:25.413 [restartedMain] INFO  [] [] [] [] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-29 15:04:25.700 [restartedMain] INFO  [] [] [] [] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-29 15:04:25.704 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    drop table if exists tbl_book cascade 
+2026-04-29 15:04:25.705 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    drop table if exists tbl_loan cascade 
+2026-04-29 15:04:25.705 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    drop table if exists tbl_member cascade 
+2026-04-29 15:04:25.706 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    drop table if exists tbl_review cascade 
+2026-04-29 15:04:25.707 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    create table tbl_book (
+        available boolean not null,
+        publish_date date not null,
+        stock_quantity integer not null,
+        book_id bigint generated by default as identity,
+        isbn varchar(13) not null unique,
+        author varchar(100) not null,
+        publisher varchar(100) not null,
+        title varchar(200) not null,
+        primary key (book_id)
+    )
+2026-04-29 15:04:25.710 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    create table tbl_loan (
+        fine_amount integer,
+        overdue_days integer,
+        book_id bigint not null,
+        due_date timestamp(6) not null,
+        loan_date timestamp(6) not null,
+        loan_id bigint generated by default as identity,
+        member_id bigint not null,
+        return_date timestamp(6),
+        status enum ('ACTIVE','OVERDUE','RETURNED') not null,
+        primary key (loan_id)
+    )
+2026-04-29 15:04:25.710 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    create table tbl_member (
+        active boolean not null,
+        join_date timestamp(6) not null,
+        member_id bigint generated by default as identity,
+        phone varchar(20),
+        member_name varchar(50) not null,
+        email varchar(100) not null unique,
+        primary key (member_id)
+    )
+2026-04-29 15:04:25.711 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    create table tbl_review (
+        helpful_count integer not null check (helpful_count>=0),
+        rating float(53) not null,
+        verified_purchase boolean not null,
+        book_id bigint not null,
+        created_at timestamp(6) not null,
+        member_id bigint not null,
+        review_id bigint generated by default as identity,
+        updated_at timestamp(6),
+        title varchar(100) not null,
+        content varchar(2000) not null,
+        status enum ('ACTIVE','DELETED','HIDDEN') not null,
+        primary key (review_id),
+        unique (member_id, book_id)
+    )
+2026-04-29 15:04:25.712 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    alter table if exists tbl_loan 
+       add constraint FK963g40utp85k5mww691e4ma6g 
+       foreign key (book_id) 
+       references tbl_book
+2026-04-29 15:04:25.715 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    alter table if exists tbl_loan 
+       add constraint FKqtnm703pqo6mnin10corsjsc 
+       foreign key (member_id) 
+       references tbl_member
+2026-04-29 15:04:25.716 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    alter table if exists tbl_review 
+       add constraint FK6ykodvsh8wis5tfouaxwi9qbc 
+       foreign key (book_id) 
+       references tbl_book
+2026-04-29 15:04:25.716 [restartedMain] DEBUG [] [] [] [] org.hibernate.SQL - 
+    alter table if exists tbl_review 
+       add constraint FKcgs2lvcrlf9x3jtif9sskpx0 
+       foreign key (member_id) 
+       references tbl_member
+2026-04-29 15:04:25.718 [restartedMain] INFO  [] [] [] [] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-29 15:04:25.833 [restartedMain] INFO  [] [] [] [] o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-29 15:04:26.122 [restartedMain] WARN  [] [] [] [] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-29 15:04:26.171 [restartedMain] DEBUG [] [] [] [] o.s.w.s.m.m.a.RequestMappingHandlerMapping - 29 mappings in 'requestMappingHandlerMapping'
+2026-04-29 15:04:26.221 [restartedMain] DEBUG [] [] [] [] o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-04-29 15:04:26.235 [restartedMain] DEBUG [] [] [] [] o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-04-29 15:04:26.253 [restartedMain] DEBUG [] [] [] [] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-04-29 15:04:26.279 [restartedMain] INFO  [] [] [] [] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:library'
+2026-04-29 15:04:26.319 [restartedMain] INFO  [] [] [] [] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-29 15:04:26.327 [restartedMain] INFO  [] [] [] [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-29 15:04:26.331 [restartedMain] INFO  [] [] [] [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-04-29 15:04:26.336 [restartedMain] INFO  [] [] [] [] c.o.s.Chap01SpringStabilityApplication - Started Chap01SpringStabilityApplication in 1.9 seconds (process running for 2.122)
+2026-04-29 15:04:30.277 [SpringApplicationShutdownHook] INFO  [] [] [] [] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-29 15:04:30.278 [tomcat-shutdown] INFO  [] [] [] [] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-29 15:04:30.280 [SpringApplicationShutdownHook] INFO  [] [] [] [] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-29 15:04:30.280 [SpringApplicationShutdownHook] DEBUG [] [] [] [] org.hibernate.SQL - 
+    drop table if exists tbl_book cascade 
+2026-04-29 15:04:30.281 [SpringApplicationShutdownHook] DEBUG [] [] [] [] org.hibernate.SQL - 
+    drop table if exists tbl_loan cascade 
+2026-04-29 15:04:30.281 [SpringApplicationShutdownHook] DEBUG [] [] [] [] org.hibernate.SQL - 
+    drop table if exists tbl_member cascade 
+2026-04-29 15:04:30.281 [SpringApplicationShutdownHook] DEBUG [] [] [] [] org.hibernate.SQL - 
+    drop table if exists tbl_review cascade 
+2026-04-29 15:04:30.283 [SpringApplicationShutdownHook] WARN  [] [] [] [] o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2026-04-29 15:04:30.283 [SpringApplicationShutdownHook] INFO  [] [] [] [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-29 15:04:30.284 [SpringApplicationShutdownHook] INFO  [] [] [] [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
