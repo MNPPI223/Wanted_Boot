@@ -22,6 +22,7 @@ public class Section02CourseCompletionAuditEventListener {
     @EventListener
     public void eventHandle(Section02CourseCompletedEvent event) {
 
+        // 타입이 일치해야만 낚아챌 수 있는 방식이다.\
         log.info(
                 "[section02] 감사 로그 기록 : userId={}, courseId={}, userName={}",
                 event.userId(),
