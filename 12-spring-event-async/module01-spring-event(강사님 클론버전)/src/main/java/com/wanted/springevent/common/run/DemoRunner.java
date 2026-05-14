@@ -1,6 +1,7 @@
 package com.wanted.springevent.common.run;
 
 import com.wanted.springevent.certificate.repository.CertificateRepository;
+import com.wanted.springevent.certificate.service.Section03CourseCompletionService;
 import com.wanted.springevent.section01.Section01CourseCompletionService;
 import com.wanted.springevent.section02.sevice.Section02CourseCompletionService;
 import org.hibernate.annotations.Comment;
@@ -23,21 +24,21 @@ public class DemoRunner implements ApplicationRunner {
 
     private final DemoScenarioFactory demoScenarioFactory;
 //    private final Section01CourseCompletionService section01CourseCompletionService;
-    private final Section02CourseCompletionService section02CourseCompletionService;
-//    private final Section03CourseCompletionService section03CourseCompletionService;
+//    private final Section02CourseCompletionService section02CourseCompletionService;
+    private final Section03CourseCompletionService section03CourseCompletionService;
     private final CertificateRepository certificateRepository;
 
     public DemoRunner(
             DemoScenarioFactory demoScenarioFactory,
 //            Section01CourseCompletionService section01CourseCompletionService,
-            Section02CourseCompletionService section02CourseCompletionService,
-//            Section03CourseCompletionService section03CourseCompletionService,
+//            Section02CourseCompletionService section02CourseCompletionService,
+            Section03CourseCompletionService section03CourseCompletionService,
             CertificateRepository certificateRepository
     ) {
         this.demoScenarioFactory = demoScenarioFactory;
 //        this.section01CourseCompletionService = section01CourseCompletionService;
-        this.section02CourseCompletionService = section02CourseCompletionService;
-//        this.section03CourseCompletionService = section03CourseCompletionService;
+//        this.section02CourseCompletionService = section02CourseCompletionService;
+        this.section03CourseCompletionService = section03CourseCompletionService;
         this.certificateRepository = certificateRepository;
     }
 
@@ -49,13 +50,13 @@ public class DemoRunner implements ApplicationRunner {
 //        section01CourseCompletionService.completeCourse(scenario.section01EnrollmentId());
 //        logCertificateCount();
 
-        log.info("========== section02: @EventListener로 발행/구독 분리 ==========");
-        section02CourseCompletionService.completeCourse(scenario.section02EnrollmentId());
-        logCertificateCount();
-//
-//        log.info("========== section03: AFTER_COMMIT 이후 후속 처리 ==========");
-//        section03CourseCompletionService.completeCourse(scenario.section03EnrollmentId());
+//        log.info("========== section02: @EventListener로 발행/구독 분리 ==========");
+//        section02CourseCompletionService.completeCourse(scenario.section02EnrollmentId());
 //        logCertificateCount();
+//
+        log.info("========== section03: AFTER_COMMIT 이후 후속 처리 ==========");
+        section03CourseCompletionService.completeCourse(scenario.section03EnrollmentId());
+        logCertificateCount();
     }
 
     private void logCertificateCount() {

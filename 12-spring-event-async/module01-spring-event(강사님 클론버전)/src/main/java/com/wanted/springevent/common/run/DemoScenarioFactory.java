@@ -53,13 +53,13 @@ public class DemoScenarioFactory {
         );
 
 //        Enrollment section01Enrollment = enrollmentRepository.save(createEnrollment(token, "learner01", course));
-        Enrollment section02Enrollment = enrollmentRepository.save(createEnrollment(token, "learner02", course));
-//        Enrollment section03Enrollment = enrollmentRepository.save(createEnrollment(token, "learner03", course));
+//        Enrollment section02Enrollment = enrollmentRepository.save(createEnrollment(token, "learner02", course));
+        Enrollment section03Enrollment = enrollmentRepository.save(createEnrollment(token, "learner03", course));
 
         return new DemoScenario(
 //                section01Enrollment.getEnrollmentId()
-                section02Enrollment.getEnrollmentId()
-//                section03Enrollment.getEnrollmentId()
+//                section02Enrollment.getEnrollmentId()
+                section03Enrollment.getEnrollmentId()
         );
     }
 
