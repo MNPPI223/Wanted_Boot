@@ -5,9 +5,11 @@ import com.wanted.springasync.domain.course.Enrollment;
 import com.wanted.springasync.repository.course.EnrollmentRepository;
 import com.wanted.springasync.section01.sync.SyncNotificationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AsyncService {
@@ -32,6 +34,8 @@ public class AsyncService {
          */
 
         asyncNotificationService.sendCompletionEmail(enrollment);
+
+        log.info("[section02] 비동기 메소드 호출 후 실행되는 LOG");
 
         return LectureResponse.completed(
                 "section02_async",
