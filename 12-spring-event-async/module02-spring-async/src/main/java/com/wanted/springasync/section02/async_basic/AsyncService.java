@@ -1,0 +1,43 @@
+package com.wanted.springasync.section02.async_basic;
+
+import com.wanted.springasync.common.support.LectureResponse;
+import com.wanted.springasync.domain.course.Enrollment;
+import com.wanted.springasync.repository.course.EnrollmentRepository;
+import com.wanted.springasync.section01.sync.SyncNotificationService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class AsyncService {
+
+    private final EnrollmentRepository enrollmentRepository;
+    private final AsyncNotificationService asyncNotificationService;
+
+    @Transactional
+    public LectureResponse completeEnrollment(Long enrollmentId) {
+
+        long start = System.currentTimeMillis();
+
+        Enrollment enrollment = enrollmentRepository.findDetailById(enrollmentId)
+                .orElseThrow(() -> new IllegalArgumentException("수강 정보를 찾을 수 없습니다. id=" + enrollmentId));
+
+
+        enrollment.complete();
+
+        /* comment.
+            해당 작업은 메인 흐름과는 별개로 부가적인 기능이기 때문에
+            별도의 흐름에서 진행되어 메인 흐름의 지장이 덜 가게 만들고자 한다.
+         */
+
+        asyncNotificationService.sendCompletionEmail(enrollment);
+
+        return LectureResponse.completed(
+                "section02_async",
+                "비동기 방식은 동시에 처리합니다..",
+                start
+        );
+    }
+
+}
