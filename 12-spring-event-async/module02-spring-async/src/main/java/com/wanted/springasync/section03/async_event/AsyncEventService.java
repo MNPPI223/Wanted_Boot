@@ -75,6 +75,8 @@ public class AsyncEventService {
          */
 
         completionSummaryService.createSummaryAsync(enrollmentId).thenAccept(
+                // 비동기 결과 -> 비동기 결과가 도출 되었을 때 실행 할 비즈니스 로직(비동기 결과);
+                // 이런 식으로 활용할 수 있게 된다.
                 summary -> log.info("[section03] CompletableFuture 콜백 실행. summary = {}. thread = {}",
                         summary, Thread.currentThread().getName())
         );
