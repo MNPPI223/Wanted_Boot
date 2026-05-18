@@ -1,0 +1,6 @@
+GET localhost:8080/api/v1/section04/void-exception
+
+###
+
+### ? 는 키/벨류 값으로 정보를 전달해주는 쿼리 스트링이다.
+POST localhost:8080/api/v1/section04/retry-jobs?userId=1&failUntilAttempt=2&maxReturyCount=3
