@@ -10,6 +10,8 @@ public class LoginRequestDto {
 
     @NotBlank(message = "사용자 아이디는 필수 입력 항목입니다.")
     @Size(min = 4, max = 20, message = "사용자 아이디는 4자 이상 20자 이하로 입력해주세요.")
+    // userId / username -> Spring Security 에서 기본 제공되는 메서드
+    // 우리가 생각하는 userId 를 username 으로 제공하고 있기 때문에
     private String username;
 
     @NotBlank(message = "비밀번호는 필수 입력 항목입니다.")

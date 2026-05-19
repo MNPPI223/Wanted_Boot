@@ -44,6 +44,7 @@ import java.util.Arrays;
  ********************************************/
 
 @Configuration
+// 모든 요청에 Security 설정 적용 활성화
 @EnableWebSecurity                     // URL 경로 기반 필터 보안
 @EnableMethodSecurity(                 // 메서드 보안 활성화
         prePostEnabled = true          // @PreAuthorize / @PostAuthorize SpEL을 사용하면 역할(Role) 기반 검사뿐만 아니라, 현재 인증된 사용자 정보까지 정의 가능
@@ -51,6 +52,10 @@ import java.util.Arrays;
         // 등을 활용하여 Actor 의 권한 별 접근 여부를 설정할 수 있다.
 )
 public class SecurityConfig {
+
+    /* comment
+        JWT 관련 커스텀 필터, 인증 / 인가 실패 시 커스텀 예외처리 클래스
+     */
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomAccessDeniedHandler accessDeniedHandler;
@@ -142,10 +147,18 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
+    /* comment.
+        8080 백엔드 서버와 5173 프론트 서버와 연결관련 설정
+        CORS -> ....
+     */
+
+    // passwordEncoder 관련 @Bean
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    /* 인증 / 인가 관련 Security 에서 가장 중요한 설정 @Bean */
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -159,6 +172,9 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 생성 X
                 .authorizeHttpRequests(auth -> auth
+                        // 이 곳은 1차 인증 인가 관련 방호벽이다.
+                        // /api/user/하위에 endpoint 중에 admin / user 권한 별로
+                        // 접근하게 하기 위해서는 메서드 레벨에서 2차로 방호벽을 구축한다.
                         .requestMatchers("/api/auth/**").permitAll() // 인증 없이 허용
                         .requestMatchers("/api/users/**").hasAnyAuthority( "ROLE_USER")
                         .requestMatchers("/api/admin/**").hasAnyAuthority("ROLE_ADMIN")

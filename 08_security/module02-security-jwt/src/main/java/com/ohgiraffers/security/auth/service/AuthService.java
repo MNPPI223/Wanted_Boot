@@ -75,11 +75,14 @@ public class AuthService {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new IllegalArgumentException("이미 사용 중인 사용자명입니다.");
         }
-
+        // 우리 프로젝트 비즈니스 정책
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
         }
 
+        // 직접 new 키워드를 사용하는 것이 아닌
+        // builder 메서드 혹은 팩토리 메서드를 활용하는 것이
+        // 추천되는 구조이다.
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
