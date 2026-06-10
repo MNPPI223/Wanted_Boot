@@ -1,0 +1,88 @@
+package com.wanted.actuator.product;
+
+import com.wanted.actuator.metric.ShopMetrics;
+import com.wanted.actuator.product.dto.CreateProductRequest;
+import com.wanted.actuator.product.dto.PopularProductResponse;
+import com.wanted.actuator.product.dto.ProductResponse;
+import io.micrometer.core.instrument.Timer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+// 많이 사용된다 -> 우선순위가 높다 -> 구현을 먼저 한다.
+
+@Service
+public class ProductService {
+
+    private static final Logger log = LoggerFactory.getLogger(ProductService.class);
+
+    private final ProductRepository productRepository;
+    private final ShopMetrics shopMetrics;
+
+    public ProductService(ProductRepository productRepository, ShopMetrics shopMetrics) {
+        this.productRepository = productRepository;
+        this.shopMetrics = shopMetrics;
+    }
+
+    @Transactional
+    public ProductResponse createProduct(CreateProductRequest request) {
+        Product product = new Product(request.name(), request.price(), request.stock());
+        return ProductResponse.from(productRepository.save(product));
+    }
+
+    @Transactional(readOnly = true)
+    public ProductResponse getProduct(Long id) {
+        return ProductResponse.from(findProduct(id));
+    }
+
+    /* comment. 항상 근거를 기반으로
+        해당 메서드는 7일간 가장 인기 있는 상품을 반환하는 메서드이다.
+        가정 )
+        - 해당 메서드는 개발자들이 생각하기에 서비스에서 가장 많이 호출되는 메서드일 것 같다.
+        - 개발 완료 후 배포, 개발자는 우리의 생각이 실 사용자들의 데이터와 일치하는 지 확인한다.
+        - Metric 을 통해서 실 지표 바탕으로 일치하는 지를 판단한다.
+        - Timer 를 사용해서 해당 메서드가 얼마나 걸리는 지 확인한다.
+        - 성능 개선을 시도한다.
+        - 지연시간을 확인하고 성능 최적화에 대한 논의를 시작한다.
+        - Before / After 를 비교해서 어떤 방식을 채택할 지 논의한다.
+     */
+
+    @Transactional(readOnly = true)
+    public List<PopularProductResponse> getPopularProducts() {
+
+        // 얼마나 호출 되는 지를 확인하는 Metric
+        shopMetrics.recordPopularProductRequest();
+        Timer.Sample sample = shopMetrics.startTimer();
+        long startedAt = System.nanoTime();
+        LocalDateTime sevenDaysAgo = LocalDateTime.now().minusDays(7);
+        // return 아래에 timer 를 쓰고싶어서, try & finally 구문 작성
+        try{
+            List<PopularProductResponse> popularProductResponses = productRepository.findPopularProducts(sevenDaysAgo, PageRequest.of(0, 5));
+
+            log.info(
+                    "event=popular_products_queried resultCount={} durationMs={}",
+                    popularProductResponses.size(),
+                    elapsedMillis(startedAt)
+            );
+
+            return popularProductResponses;
+        } finally {
+            // 성공/실패와 관계없이 위에서 시작한 sample 을 종료해 쿼리 지연 시간을 기록한다
+            shopMetrics.stopPopularProductQueryTimer(sample);
+        }
+
+    }
+
+    private Product findProduct(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
+    }
+    private long elapsedMillis(long startedAt) {
+        return (System.nanoTime() - startedAt) / 1_000_000;
+    }
+}
