@@ -29,3 +29,13 @@ management:
         # prometheus 는 build.gradle 에 추가한 프로메테우스 구현체 결과를
         # 확인할 수 있는 endpoint 이다.
         include: health, info, metrics, shop, prometheus
+  metrics:
+    distribution:
+      # percentiles-histogram 을 켜면 Micrometer 가 _bucket{le=...} 시계열을 내보낸다.
+      # 이 bucket 이 있어야 Prometheus 의 histogram_quantile() 로 p90/p95/p99 를 계산할 수 있다.
+      # 켜지 않으면 Timer 는 count/sum/max 만 제공하므로 percentile 을 볼 수 없다.
+      percentiles-histogram:
+        http.server.requests: true
+        shop.products.popular.query.duration: true
+        shop.orders.creation.duration: true
+        shop.payment.duration: true
