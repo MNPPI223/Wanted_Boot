@@ -1,0 +1,47 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: menudb
+      MYSQL_USER: wanted
+      MYSQL_PASSWORD: wanted
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    networks:
+      - wanted-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p1234" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build:
+      # Docekr build 디렉토리 설정
+      # 같은 루트 선에 있는 모든 파일을 뜻함.
+      context: .
+    image: test-docker:1.0
+    container_name: test-docker-app
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: menudb
+      DB_USERNAME: wanted
+      DB_PASSWORD: wanted
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - wanted-network
+
+volumes:
+  mysql-volume:
+
+networks:
+  wanted-network:
