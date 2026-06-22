@@ -1,10 +1,10 @@
-package com.wanted.elasticbeanstalk;
+package com.wanted.springcache;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Module02ElasticBeansTalkApplicationTests {
+class Module01SpringCacheApplicationTests {
 
     @Test
     void contextLoads() {

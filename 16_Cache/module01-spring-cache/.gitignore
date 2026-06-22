@@ -5,11 +5,6 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-# application-dev.yml 은 RDS 접속 URL 등
-# 민감한 정보를 담고 있기 때문에 ignore 시키고
-# github secrets 에 등록 예정이다.
-application-dev.yml
-
 ### STS ###
 .apt_generated
 .classpath
