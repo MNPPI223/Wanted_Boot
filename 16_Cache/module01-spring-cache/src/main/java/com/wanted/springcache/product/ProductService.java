@@ -3,8 +3,7 @@ package com.wanted.springcache.product;
 import com.wanted.springcache.cache.CacheNames;
 import com.wanted.springcache.support.SlowSimulator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -83,5 +82,41 @@ public class ProductService {
 
     }
 
+    // CachePut 은 캐시 히트 여부와 관계 없이 메서드 본문을 실행한다.
+    @CachePut(key = "#id")
+    public Product refreshProduct(Long id) {
 
+        slowSimulator.detailQueryLatency();
+        return findProduct(id);
+
+    }
+
+    // id 값에 해당하는 캐시 데이터를 무효화(제거)한다.
+    @CacheEvict(key = "#id")
+    public void evictProduct(Long id) {
+
+    }
+
+    /* comment.
+        @Caching 은 여러 캐시 작업을 한 번에 묶을 수 있다.
+        재고 변경 등에 의한 캐시 재설정은 put 보다는 evict 을 사용해서 기존 캐시를 날리고
+        새롭게 만드는 방법을 훨씬 많이 쓰게 된다.
+        evict allEntries = true 는 PRODUCT_SEARCH 캐시 전체를 비우는 명령이다.
+        해당 명령어는 단순하고 안전하지만, PRODUCT_SEARCH 캐시가 많을수록 재생성 비용이 커질 수 있다.
+        이는 트레이드 오프이다!!
+     */
+    @Transactional // dml 구문이라 사용
+    @Caching(
+            put = @CachePut(key = "#id"),
+            evict = @CacheEvict(cacheNames = CacheNames.PRODUCT_SEARCH, allEntries = true)
+    )
+    public Product changeStock(Long id, int stock) {
+
+        //재고 변경을 위해 변경 할 product 조회
+        Product product = findProduct(id);
+
+        product.changeStock(stock);
+
+        return product;
+    }
 }

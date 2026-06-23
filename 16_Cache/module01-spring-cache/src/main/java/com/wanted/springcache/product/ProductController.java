@@ -1,6 +1,7 @@
 package com.wanted.springcache.product;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -45,5 +46,34 @@ public class ProductController {
         return productService.searchAfter(keyword, category, minPrice, maxPrice);
     }
 
+    /* comment.
+        @CachePut
+        해당 메서드에 Cache 가 존재하더라도 메서드를 실행한다.
+        강제로 DB 를 다시 조회하고 조회 된 결과를 캐시에 덮어쓴다.
+     */
+        @PostMapping("/after/products/{id}/refresh")
+        public Product refreshProduct(@PathVariable Long id) {
+            return productService.refreshProduct(id);
+        }
+
+        /* comment.
+            @CacheEvict 는 캐시 항목을 제거한다.
+         */
+        @DeleteMapping("/after/products/{id}/cache")
+        public ResponseEntity<Void> evictProduct(@PathVariable Long id) {
+            productService.evictProduct(id);
+
+            return ResponseEntity.noContent().build();
+        }
+
+        /* comment.
+            재고변경이 일어나는 상태를 가정한다.
+            - 재고가 변경되면 상세 캐시와 검색 캐시 모두 오래된 데이터를
+            - 가질 수 있다.
+         */
+    @PatchMapping("/after/products/{id}/stock")
+    public Product changeStock(@PathVariable Long id, @RequestParam int stock) {
+        return productService.changeStock(id, stock);
+    }
 
 }
