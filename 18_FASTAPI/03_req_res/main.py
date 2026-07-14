@@ -16,7 +16,9 @@ app = FastAPI()
 # 이 넘어오게 된다면 자동으로 검증 오류를 발생시킨다.
 # 추가적으로 Field 를 활용하게 되면 더 구체적인 조건을 지정할 수 있다.
 class ChatRequest(BaseModel):
-    question : str
+    # ge : greater equals 크거나 같음 (이상), le less equals 자거나 같음 (이하)
+    # el 표기법(축약 표현식)
+    question : str = Field(min_length=1,max_length=10 ,description="사용자의 질문")
 
 class ChatResponse(BaseModel):
     question : str
