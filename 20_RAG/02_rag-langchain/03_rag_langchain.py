@@ -100,5 +100,7 @@ if __name__ == "__main__":
     question = "동영상 강의 출석 인정 기준이 뭐야?"
     print(f"질문: {question}")
     print("-" * 60)
+    # invoke() : 체인 전체를 한 번 실행 !!
+    # stream () : 스트리밍 형태로 실행 !!
     print(rag_chain.invoke(question))
 # ============================================================
